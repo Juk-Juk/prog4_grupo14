@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
+from market.models import Product
 
 def home(request):
-    return render(request, "home.html")
+    products = Product.objects.filter(active=True).order_by("-created_at")[:6]  # últimos 6
+    return render(request, "home.html", {"products": products})
