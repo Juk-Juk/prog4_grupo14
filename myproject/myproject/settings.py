@@ -17,11 +17,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
-#=============================================
-#Uncomment this later!!
-# env = environ.Env(DEBUG=(bool, True))
-# environ.Env.read_env()
-#=============================================
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY", default="dev-secret-no-usar-en-prod")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  #env("DEBUG", default = True)
+DEBUG = env("DEBUG", default = True)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -60,6 +55,7 @@ INSTALLED_APPS = [
     # Apps propias
     "core",
     "market",
+    "profiles",
 ]
 
 SITE_ID = 1
@@ -71,6 +67,8 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+ACCOUNT_SIGNUP_FIELDS = ["email", "username", "password1", "password2"]
+#ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True #Idk what this is about
 
 # (opcional) Config de allauth
 ACCOUNT_LOGIN_METHODS = {"email", "username"}
@@ -96,6 +94,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.csrf', # <-- Forms Requirement
                 "django.template.context_processors.debug", # <-- Allauth requirement
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -180,6 +179,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT= BASE_DIR / 'static'
 
 #Media files
 MEDIA_URL = 'media/'

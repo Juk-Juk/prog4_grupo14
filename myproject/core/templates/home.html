@@ -1,36 +1,22 @@
 {% extends "base.html" %}
 {% load socialaccount %}
-{% load static %}
 {% block title %}Inicio • Mi Mercado{% endblock %}
 
 {% block content %}
-<div class="home-container">
-  <h1>Bienvenido a Mi Mercado</h1>
-
-  {% if not user.is_authenticated %}
-    <p>Iniciá sesión para comprar, vender o intercambiar productos</p>
+<h1 >Inicio</h1>
+{% if not user.is_authenticated %}
+  <p>Ingresa para publicar o comprar.</p>
+  <p>
     <div class="social-login">
-      <a href="{% provider_login_url 'google' %}" class="btn-social google">
-        <img src="{% static 'img/google.svg' %}" alt="Google" class="social-logo">
+      <a href="{% provider_login_url 'google' %}" role="button" class="btn-social">
+        <i class="fab fa-google"></i>
       </a>
-      <a href="{% provider_login_url 'github' %}" class="btn-social github">
-        <img src="{% static 'img/github.svg' %}" alt="GitHub" class="social-logo">
+      <a href="{% provider_login_url 'github' %}" role="button" class="btn-social">
+        <i class="fab fa-github"></i>
       </a>
-    </div>
-  {% else %}
-    <h2>Últimos productos</h2>
-    <div class="card-container">
-      {% for product in products %}
-        <div class="card">
-          <h3>{{ product.title }}</h3>
-          <p>{{ product.description|truncatewords:15 }}</p>
-          <p><strong>${{ product.price }}</strong></p>
-          <a href="{% url 'product_list' %}">Ver más</a>
-        </div>
-      {% empty %}
-        <p>No hay productos publicados todavía.</p>
-      {% endfor %}
-    </div>
-  {% endif %}
-</div>
+    </div> 
+  </p>
+{% else %}
+  <p>Ya estás logueado ✅. Próximo paso: crear productos y compras.</p>
+{% endif %}
 {% endblock %}

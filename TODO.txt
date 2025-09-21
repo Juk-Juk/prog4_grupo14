@@ -1,0 +1,3 @@
+Fix account creation signup
+Fix the profiles views
+Swap allauth login, logout, password_reset & signup for custom ones

@@ -19,10 +19,13 @@ from django.urls import path, include
 from core.views import home
 from django.conf import settings
 from django.conf.urls.static import static
+# from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
     path('accounts/', include("allauth.urls")), #allauth
+    # path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path("products/", include("market.urls")),  # market
+    path("profiles/", include("profiles.urls")), #profiles
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
