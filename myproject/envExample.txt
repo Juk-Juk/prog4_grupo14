@@ -1,5 +1,5 @@
 # Django Secret
-SECRET_KEY = '<djangoSecretKey>'
+SECRET_KEY='<djangoSecretKey>'
 
 # Google OAuth
 GOOGLE_CLIENT_ID='<GoogleClientID>'

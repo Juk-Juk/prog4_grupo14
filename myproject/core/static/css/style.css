@@ -1,7 +1,7 @@
 .social-login {
     display: flex;
-    justify-content: center; /* centra horizontal */
-    gap: 20px; /* espacio entre logos */
+    justify-content: center; /* horizontal center */
+    gap: 20px; /* space between logos */
     margin-top: 20px;
 }
 
@@ -10,13 +10,13 @@
 }
 
 .social-logo {
-    width: 50px; /* ajusta al tamaño que quieras */
+    width: 50px; /* logo size */
     height: auto;
     transition: transform 0.2s ease-in-out;
 }
 
 .social-logo:hover {
-    transform: scale(1.1); /* efecto al pasar el mouse */
+    transform: scale(1.1); /* mouse hover effect */
 }
 
 .btn-social {
@@ -33,11 +33,11 @@
 }
 
 .btn-social.google {
-    background: #DB4437; /* Rojo Google */
+    background: #DB4437; /* red for Google */
 }
 
 .btn-social.github {
-    background: #333; /* Negro GitHub */
+    background: #333; /* black for GitHub */
 }
 
 .btn-social:hover {

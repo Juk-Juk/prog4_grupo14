@@ -16,14 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import home
+# from core.views import home
 from django.conf import settings
 from django.conf.urls.static import static
-# from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name="home"),
+    # path('', home, name="home"),
+    path('', include('core.urls')), #login, logout, signup & pw reset
     path('accounts/', include("allauth.urls")), #allauth
     # path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path("products/", include("market.urls")),  # market
