@@ -1,46 +1,61 @@
-.social-login {
-    display: flex;
-    justify-content: center; /* horizontal center */
-    gap: 20px; /* space between logos */
-    margin-top: 20px;
+/* ======= Estilos globales ======= */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.social-login a {
-    text-decoration: none;
+.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease-in-out;
 }
 
-.social-logo {
-    width: 50px; /* logo size */
-    height: auto;
-    transition: transform 0.2s ease-in-out;
+.card:hover {
+  transform: translateY(-3px);
 }
 
-.social-logo:hover {
-    transform: scale(1.1); /* mouse hover effect */
+.btn-primary,
+.btn-success {
+  border-radius: 8px;
+  font-weight: 600;
 }
 
-.btn-social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    font-size: 28px;
-    text-decoration: none;
-    color: rgb(24, 23, 23);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.btn-danger {
+  border-radius: 8px;
 }
 
-.btn-social.google {
-    background: #DB4437; /* red for Google */
+/* ======= Navbar ======= */
+.navbar-brand {
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
 }
 
-.btn-social.github {
-    background: #333; /* black for GitHub */
+.nav-link img {
+  border: 2px solid white;
 }
 
-.btn-social:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+/* ======= Títulos ======= */
+h2,
+h3,
+h5 {
+  font-weight: bold;
+  color: #333;
+}
+
+/* ======= Formulario ======= */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+input,
+textarea,
+select {
+  border-radius: 8px !important;
+}
+
+/* ======= Responsive grid ======= */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
 }

@@ -1,12 +1,17 @@
-{% extends "base.html" %}
-{% block title %}Eliminar producto{% endblock %}
+{% extends "base.html" %} {% block title %}Eliminar producto{% endblock %} {%
+block content %}
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="text-danger text-center">Eliminar producto</h2>
+    <p class="text-center">
+      ¿Estás seguro que quieres eliminar <strong>"{{ product.title }}"</strong>?
+    </p>
 
-{% block content %}
-<h2>Eliminar producto</h2>
-<p>¿Estás seguro que quieres eliminar "{{ product.title }}"?</p>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn-primary">Sí, eliminar</button>
-  <a href="{% url 'product_list' %}" class="btn-secondary">Cancelar</a>
-</form>
+    <form method="post" class="text-center">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger me-2">Sí, eliminar</button>
+      <a href="{% url 'product_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+</div>
 {% endblock %}

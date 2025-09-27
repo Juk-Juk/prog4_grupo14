@@ -1,11 +1,14 @@
-{% extends "base.html" %}
-{% block title %}Nuevo producto{% endblock %}
-
-{% block content %}
-<h2>Publicar producto</h2>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn-primary">Publicar</button>
-</form>
+{% extends "base.html" %} {% block title %}Nuevo producto{% endblock %} {% block
+content %}
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="text-center mb-4">Publicar producto</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Publicar</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

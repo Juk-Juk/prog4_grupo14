@@ -1,31 +1,37 @@
-{% extends "base.html" %}
-{% block title %}Productos • Mi Mercado{% endblock %}
-
+{% extends "base.html" %} {% block title %}Productos • Mi Mercado{% endblock %}
 {% block content %}
-<h2>Todos los productos</h2>
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Todos los productos</h2>
 
-<div class="card-container">
-  {% for product in products %}
-    <div class="card">
-      <h3>{{ product.title }}</h3>
-      <p>{{ product.description }}</p>
-      <p><strong>${{ product.price }}</strong></p>
-      {% if user.is_authenticated %}
-        <button>Comprar / Truequear</button>
-      {% else %}
-        <a href="{% url 'account_login' %}">Inicia sesión para comprar</a>
-      {% endif %}
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="fw-bold text-success">${{ product.price }}</p>
+
+          {% if product.is_available %}
+          <p class="text-muted">Stock: {{ product.stock }}</p>
+          {% else %}
+          <p class="text-danger">No disponible</p>
+          {% endif %} {% if user.is_authenticated %}
+          <button class="btn btn-success w-100">Comprar / Truequear</button>
+          {% else %}
+          <a
+            href="{% url 'account_login' %}"
+            class="btn btn-outline-primary w-100"
+          >
+            Inicia sesión para comprar
+          </a>
+          {% endif %}
+        </div>
+      </div>
     </div>
-  {% empty %}
-    <p>No hay productos disponibles.</p>
-  {% endfor %}
-
-<p>
-    {% if product.is_available %}
-    <strong>Stock: {{ product.stock }}</strong>
-  {% else %}
-    <span style="color:red;">No disponible</span>
-  {% endif %}
-</p>
+    {% empty %}
+    <p class="text-center text-muted">No hay productos disponibles.</p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
