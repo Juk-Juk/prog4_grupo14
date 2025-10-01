@@ -7,7 +7,7 @@ from .gemini_client import embed_text
 @receiver(post_save, sender=Product)
 def compute_product_embedding(sender, instance, created, **kwargs):
     # Update or create embedding (might take a while)
-    text = f"{instance.title}. {instance.description or ''}. Marca: {instance.marca or ''}"
+    text = f"{instance.title}. {instance.description or ''}. Marca: {instance.brand or ''}"
     emb = embed_text(text)
     if emb:
         obj, _ = ProductEmbedding.objects.update_or_create(

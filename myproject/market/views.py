@@ -17,7 +17,7 @@ def product_create(request):
             product = form.save(commit=False)
             product.seller = request.user
             product.save()
-            return redirect("product_list")
+            return redirect("market:product_list")
     else:
         form = ProductForm()
     return render(request, "product_form.html", {"form": form})
@@ -30,7 +30,7 @@ def product_edit(request, pk):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect("product_list")
+            return redirect("market:product_list")
     else:
         form = ProductForm(instance=product)
     return render(request, "market/product_form.html", {"form": form})
@@ -42,5 +42,5 @@ def product_delete(request, pk):
     if request.method == "POST":
         product.active = False
         product.save()
-        return redirect("product_list")
+        return redirect("market:product_list")
     return render(request, "market/product_confirm_delete.html", {"product": product})
