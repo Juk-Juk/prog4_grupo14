@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "core",
     "market",
     "profiles",
+    "market_ai",
 ]
 
 SITE_ID = 1

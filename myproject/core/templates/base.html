@@ -16,6 +16,19 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a class="navbar-brand fw-bold" href="{% url 'home' %}">Mi Mercado</a>
+      {% if user.is_authenticated %}
+        <a class="nav-link text-white px-3" href="{% url 'market_ai:ai_chat' %}">
+          🤖 SugerIA
+        </a>
+     
+        <a class="nav-link text-white px-3" href="{% url 'market_ai:price_suggest' %}">
+          💰 PrecIA
+        </a>
+
+         <a class="nav-link text-white px-3" href="{% url 'market:product_list' %}">
+          🏬 Tienda
+        </a>
+      {% endif %}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>

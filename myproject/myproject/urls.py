@@ -28,4 +28,5 @@ urlpatterns = [
     # path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path("products/", include("market.urls")),  # market
     path("profiles/", include("profiles.urls")), #profiles
+    path("ai/", include("market_ai.urls", namespace="market_ai")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -8,3 +8,6 @@ GOOGLE_CLIENT_SECRET='<GoogleSecret>'
 # GitHub OAuth
 GITHUB_CLIENT_ID='<GitHubClientID>'
 GITHUB_CLIENT_SECRET='<GitHubSecret>'
+
+# Gemini OAuth
+GEMINI_API_KEY='<GeminiApiKey>'
