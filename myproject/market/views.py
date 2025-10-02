@@ -12,7 +12,7 @@ def product_list(request):
 @login_required
 def product_create(request):
     if request.method == "POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save(commit=False)
             product.seller = request.user
@@ -43,4 +43,4 @@ def product_delete(request, pk):
         product.active = False
         product.save()
         return redirect("market:product_list")
-    return render(request, "market/product_confirm_delete.html", {"product": product})
+    return render(request, "market/product_list.html", {"product": product})

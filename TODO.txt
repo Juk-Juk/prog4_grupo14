@@ -1,3 +1,4 @@
+Now:
 🗸 Fix account creation signup
 🗸 Fix the profiles views
 🗸 Swap allauth login, logout, password_reset & signup for custom ones
@@ -5,3 +6,12 @@
 □ market_ai/gemini_client.py set up the use_vertex variable correctly
 □ fix home social icons
 □ fix ai call in chat
+□
+
+Eventually:
+□ Add cart
+□ Add wishlist
+□ Add filter for product_list
+□ Make profile pretty
+□ Dark mode
+□ Create a page to list all other people's product separated from the profile owner ones

@@ -36,28 +36,33 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "django.contrib.sites",           # <-- Allauth requirement
+    'django.contrib.sites',           # <-- Allauth requirement
+]
 
-    # Terceros
+THIRD_PARTY_APPS = [
     "allauth",                        # Core
     "allauth.account",                # Local accs (optional)
     "allauth.socialaccount",          # Social login
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.github",
+]
 
-    # Apps propias
+OWN_APPS = [
     "core",
     "market",
     "profiles",
     "market_ai",
+    "my_products",
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + OWN_APPS
 
 SITE_ID = 1
 
@@ -180,6 +185,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 # STATIC_ROOT= BASE_DIR / 'static'
 
 #Media files

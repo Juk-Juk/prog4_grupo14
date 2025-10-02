@@ -1,9 +1,10 @@
 {% extends "base.html" %} {% block title %}Productos • Mi Mercado{% endblock %}
+{% load static %}
 {% block content %}
 <div>
-  <button class="btn btn-success" href="{% url 'market:product_create' %}">
+  <a class="btn btn-success" href="{% url 'market:product_create' %}">
     Agregar Producto
-  </button>
+  </a>
 <div/>
 <div class="container mt-5">
   <h2 class="mb-4 text-center">Todos los productos</h2>
@@ -16,14 +17,27 @@
           <h5 class="card-title">{{ product.title }}</h5>
           <p class="card-text">{{ product.description }}</p>
           <p class="fw-bold text-success">${{ product.price }}</p>
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+          {% else %}
+            <img src="{% static 'images/no-image-placeholder.png' %}" alt="No image" class="img-fluid">
+          {% endif %}
 
           {% if product.is_available %}
           <p class="text-muted">Stock: {{ product.stock }}</p>
           {% else %}
           <p class="text-danger">No disponible</p>
-          {% endif %} {% if user.is_authenticated %}
-          <button class="btn btn-success w-100">Comprar / Truequear</button>
-          <button class="btn btn-outline-danger w-100">Borrar</button>
+          {% endif %} 
+          {% if user.is_authenticated %}
+            {% if product.seller != user %}
+              <button class="btn btn-success w-100">Comprar / Truequear</button>
+            {% else %}
+              <form method="POST" action="{% url 'market:product_delete' product.pk %}" 
+                onsubmit="return confirm('Estas seguro que quieres borrar este producto?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger w-100">Borrar Producto</button>
+              </form>
+            {% endif %}
           {% else %}
           <a
             href="{% url 'account_login' %}"
