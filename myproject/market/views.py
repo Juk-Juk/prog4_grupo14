@@ -5,8 +5,13 @@ from .models import Product
 
 @login_required
 def product_list(request):
-    products = Product.objects.filter(active=True).order_by("-created_at")
+    products = Product.objects.filter(active=True).exclude(seller=request.user).order_by("-created_at")
     return render(request, "product_list.html", {"products": products})
+
+@login_required
+def my_product_list(request):
+    products = Product.objects.filter(active=True, seller=request.user).order_by("-created_at")
+    return render(request, "my_product_list.html", {"products": products})
 
 #Create Product
 @login_required

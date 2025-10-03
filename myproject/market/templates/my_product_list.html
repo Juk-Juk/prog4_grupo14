@@ -1,8 +1,15 @@
-{% extends "base.html" %} {% block title %}Productos • Mi Mercado{% endblock %}
+{% extends "base.html" %}
+{% block title %}Mis Productos • Mi Mercado{% endblock %}
 {% load static %}
 {% block content %}
+<div>
+  <a class="btn btn-success" href="{% url 'market:product_create' %}">
+    Agregar Producto
+  </a>
+<div/>
+
 <div class="container mt-5">
-  <h2 class="mb-4 text-center">Todos los productos</h2>
+  <h2 class="mb-4 text-center">Mi Lista De Productos</h2>
 
   <div class="row">
     {% for product in products %}
@@ -24,7 +31,11 @@
           <p class="text-danger">No disponible</p>
           {% endif %} 
           {% if user.is_authenticated %}
-              <button class="btn btn-success w-100">Comprar / Truequear</button>
+              <form method="POST" action="{% url 'market:product_delete' product.pk %}" 
+                onsubmit="return confirm('Estas seguro que quieres borrar este producto?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger w-100">Borrar Producto</button>
+              </form>
           {% else %}
           <a
             href="{% url 'account_login' %}"

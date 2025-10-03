@@ -59,7 +59,6 @@ OWN_APPS = [
     "market",
     "profiles",
     "market_ai",
-    "my_products",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + OWN_APPS
