@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
 <div>
-  <a class="btn btn-success" href="{% url 'market:product_create' %}">
+  <a class="btn btn-success w-100" href="{% url 'market:product_create' %}">
     Agregar Producto
   </a>
 <div/>
@@ -20,9 +20,9 @@
           <p class="card-text">{{ product.description }}</p>
           <p class="fw-bold text-success">${{ product.price }}</p>
           {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
           {% else %}
-            <img src="{% static 'images/no-image-placeholder.png' %}" alt="No image" class="img-fluid">
+            <img src="{% static 'images/no-image-placeholder.jpg' %}" alt="No image" class="product-image">
           {% endif %}
 
           {% if product.is_available %}

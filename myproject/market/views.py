@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import ProductForm
 from .models import Product
+from django.contrib import messages
 
 @login_required
 def product_list(request):
@@ -22,7 +23,13 @@ def product_create(request):
             product = form.save(commit=False)
             product.seller = request.user
             product.save()
-            return redirect("market:product_list")
+            messages.success(request, '¡Producto creado exitosamente!')
+            return redirect("market:my_product_list")
+        else:
+            if 'image' in form.errors:
+                messages.error(request, form.errors['image'][0])
+            else:
+                messages.error(request, 'Por favor corrige los errores en el formulario.')
     else:
         form = ProductForm()
     return render(request, "product_form.html", {"form": form})
