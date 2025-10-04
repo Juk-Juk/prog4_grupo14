@@ -9,6 +9,14 @@
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
         <div class="card-body">
+          <form class="favorite-form" data-product-id="{{ product.id }}" method="POST" action="{% url 'market:toggle_favorite' product.id %}">
+            {% csrf_token %}
+            {% if user in product.favorited_by.all %}
+              <button type="submit" class="btn btn-warning favorite-btn">❤️ Quitar de la lista de deseos</button>
+            {% else %}
+              <button type="submit" class="btn btn-outline-warning favorite-btn">🤍 Agregar a la lista de deseos</button>
+            {% endif %}
+          </form>
           <h5 class="card-title">{{ product.title }}</h5>
           <p class="card-text">{{ product.description }}</p>
           <p class="fw-bold text-success">${{ product.price }}</p>
@@ -41,4 +49,5 @@
     {% endfor %}
   </div>
 </div>
+<script src="{% static 'js/favorites.js' %}"></script>
 {% endblock %}

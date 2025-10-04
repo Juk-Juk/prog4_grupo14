@@ -10,6 +10,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default=1)
     image = models.ImageField(upload_to="product_images/", blank=True, null=True)  # Optional
     active = models.BooleanField(default=True)
+    favorited_by = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='favorites', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)  #Last Modified
 

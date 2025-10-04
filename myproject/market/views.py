@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ProductForm
 from .models import Product, Cart, CartItem
 from django.contrib import messages
+from django.http import JsonResponse
 
 @login_required
 def product_list(request):
@@ -80,3 +81,29 @@ def remove_from_cart(request, product_id):
 def view_cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     return render(request, "shopping_cart.html", {"cart": cart})
+
+@login_required
+def toggle_favorite(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    
+    if request.user in product.favorited_by.all():
+        product.favorited_by.remove(request.user)
+        is_favorited = False
+        message = 'Producto eliminado de la lista de deseos'
+    else:
+        product.favorited_by.add(request.user)
+        is_favorited = True
+        message = 'Producto agregado a la lista de deseos'
+    
+    # If it's an AJAX request, return JSON
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'is_favorited': is_favorited, 'message': message})
+    
+    # Otherwise, redirect as before (for non-JS browsers)
+    messages.success(request, message)
+    return redirect(request.META.get('HTTP_REFERER', 'market:product_list'))
+
+@login_required
+def wishlist(request):
+    favorite_products = Product.objects.filter(favorited_by=request.user, active=True)
+    return render(request, "wishlist.html", {"products": favorite_products})

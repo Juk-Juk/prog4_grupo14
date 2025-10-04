@@ -4,14 +4,14 @@ Now:
 🗸 Swap allauth login, logout, password_reset & signup for custom ones
 □ market_ai/templates/recommendations test <a href="{% url 'market:product_list' p.pk %}" class="btn-primary">Ver</a> for correct pathing and template
 □ market_ai/gemini_client.py set up the use_vertex variable correctly
-□ fix home social icons
+🗸 fix home social icons
 □ fix ai call in chat
-□
+□ fix profile image not showing
+□ add edit button to own products
 
 Eventually:
-□ Add cart
-□ Add wishlist
+🗸 Add cart
+🗸 Add wishlist
 □ Add filter for product_list
-□ Make profile pretty
-□ Dark mode
-□ Create a page to list all other people's product separated from the profile owner ones
+□ Make profile page
+🗸 Create a page to list all other people's product separated from the profile owner ones
