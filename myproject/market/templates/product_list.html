@@ -15,7 +15,7 @@
           {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
           {% else %}
-            <img src="{% static 'images/no-image-placeholder.png' %}" alt="No image" class="product-image">
+            <img src="{% static 'images/no-image-placeholder.jpg' %}" alt="No image" class="product-image">
           {% endif %}
 
           {% if product.is_available %}
@@ -24,7 +24,7 @@
           <p class="text-danger">No disponible</p>
           {% endif %} 
           {% if user.is_authenticated %}
-              <button class="btn btn-success w-100">Comprar / Truequear</button>
+              <a href={% url 'market:add_to_cart' product.id %} class="btn btn-success w-100">Agregar al Carrito</a>
           {% else %}
           <a
             href="{% url 'account_login' %}"

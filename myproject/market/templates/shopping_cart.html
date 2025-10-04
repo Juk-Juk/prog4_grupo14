@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Mi Carrito{% endblock %}
+
+{% block content %}
+<h2>Carrito De Compras</h2>
+
+{% if cart.items.all %}
+  <ul>
+    {% for item in cart.items.all %}
+      <li>{{ item.product.title }} (x{{ item.quantity }}) — ${{ item.subtotal }}</li>
+      <form method="POST" action="{% url 'market:remove_from_cart' item.product.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+      </form>
+    {% endfor %}
+  </ul>
+  <p><strong>Total:</strong> ${{ cart.total }}</p>
+{% else %}
+  <p>Tu carrito está vacío.</p>
+{% endif %}
+{% endblock %}
