@@ -15,8 +15,8 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your account has been created successfully!")
-            return redirect('login')  # Redirect to login after successful signup
+            messages.success(request, '¡Cuenta creada exitosamente! Inicia sesión.')
+            return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'account/signup.html', {'form': form})
@@ -28,7 +28,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            messages.success(request, f"Welcome back, {user.username}!")
+            messages.success(request, f"Bienvenido, {user.username}!")
             return redirect('home')
     else:
         form = AuthenticationForm()

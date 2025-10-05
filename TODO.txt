@@ -8,8 +8,8 @@ Now:
 □ fix ai call in chat
 □ fix profile image not showing
 □ add edit button to own products
-□ translate product_form fields to spanish 
-□ make dropdown for IA in base.html
+□ translate product_form & login/signup fields to spanish 
+🗸 make dropdown for IA in base.html
 
 Eventually:
 🗸 Add cart

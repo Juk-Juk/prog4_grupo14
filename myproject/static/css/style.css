@@ -1,3 +1,19 @@
+[data-bs-theme="dark"] {
+  --bs-body-bg: #121212;
+  --bs-body-color: #f8f9fa;
+  --bs-border-color: #444;
+
+  --bs-form-control-bg: #1e1e1e;
+  --bs-form-control-color: #f8f9fa;
+  --bs-form-control-border-color: #555;
+  --bs-form-control-placeholder-color: rgba(255, 255, 255, 0.7);
+  --bs-form-control-focus-bg: #1e1e1e;
+  --bs-form-control-focus-color: #fff;
+  --bs-form-control-focus-border-color: #888;
+  --bs-form-control-disabled-bg: #2c2c2c;
+  --bs-form-control-disabled-color: #aaa;
+}
+
 .form-control-dark {
   border-color: var(--bs-gray);
 }

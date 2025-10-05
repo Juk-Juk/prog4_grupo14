@@ -70,8 +70,9 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
 ACCOUNT_SIGNUP_FIELDS = ["email", "username", "password1", "password2"]
 #ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True #Idk what this is about
 
