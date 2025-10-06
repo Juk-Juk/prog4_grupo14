@@ -99,7 +99,7 @@
                 </symbol>
                   <use xlink:href="#robot"></use>
                 </svg>
-                IA
+                IA ⯆
               </a>
               <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item" href="{% url 'market_ai:ai_chat' %}">Chat</a></li>
@@ -138,14 +138,46 @@
                 Wishlist
               </a>
             </li>
+            <li>
+              <a
+                href="#"
+                class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {% if user.profile.avatar %}
+                  <img src="{{ user.profile.avatar.url }}" 
+                      alt="Avatar" 
+                      class="rounded-circle" 
+                      width="56" height="56"
+                      style="object-fit: cover;">
+                {% else %}
+                  <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random" 
+                      alt="Avatar" 
+                      class="rounded-circle"
+                      style="margin-top: 10px;margin-left: 10px;" 
+                      width="48" height="48">
+                {% endif %}
+              </a>
+              <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Perfil</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <form method="post" action="{% url 'account_logout' %}" class="d-inline">
+                  {% csrf_token %}
+                  <button class="dropdown-item" type="submit">Cerrar Sesión</button>
+                  </form>
+                </li>
+            </li>
           </ul>
         </div>
       </div>
     </div>
     {% endif %}
+    {% if not user.is_authenticated %}
     <div class="px-3 py-2 border-bottom mb-3">
-      <div class="container d-flex flex-wrap justify-content-center">
-        <form
+      <div class="container d-flex flex-wrap justify-content-end">
+        {% comment %} <form
           class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto"
           role="search"
         >
@@ -155,8 +187,7 @@
             placeholder="Buscar..."
             aria-label="Search"
           />
-        </form>
-        {% if not user.is_authenticated %}
+        </form> {% endcomment %}
           <div class="text-end">
             <a href="{% url 'account_login' %}" type="button" class="btn btn-light text-dark me-2">
               Acceder
@@ -164,13 +195,6 @@
             <a href="{% url 'account_signup' %}" type="button" class="btn btn-primary">
               Crear Cuenta
             </a>
-        {% else %}
-          <form method="post" action="{% url 'account_logout' %}" class="d-inline">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger">
-              Cerrar Sesión
-            </button>
-          </form>
         {% endif %}
         </div>
       </div>
