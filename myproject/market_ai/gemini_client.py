@@ -29,7 +29,7 @@ def client():
     return _client
 
 # Correct generated text
-def generate_text(prompt, model="gemini-1.5-flash", max_output_tokens=300):
+def generate_text(prompt, model="gemini-flash-latest", max_output_tokens=300):
     c = client()
     try:
         # New API config
