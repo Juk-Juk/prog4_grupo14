@@ -11,6 +11,7 @@ Now:
 □ translate product_form & login/signup fields to spanish 
 🗸 make dropdown for IA in base.html
 □ modal for sign in and signup
+□ fix home view for signup & password change and signup modal
 
 Eventually:
 🗸 Add cart

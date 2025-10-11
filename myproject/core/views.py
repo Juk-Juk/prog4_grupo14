@@ -1,13 +1,43 @@
-from market.models import Product
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.models import User
 from django.contrib import messages
 
 def home(request):
-    products = Product.objects.filter(active=True).order_by("-created_at")[:6]  # últimos 6
-    return render(request, "home.html", {"products": products})
+    if request.method == 'POST':
+      form_type = request.POST.get('form_type')
+
+      if form_type == 'login':
+        username = request.POST.get('login')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.error(request, 'Usuario o contraseña incorrectos')
+            return redirect('/')  # Stay on home page
+      elif form_type == 'signup':
+          username = request.POST.get('username')
+          email = request.POST.get('email')
+          password1 = request.POST.get('password1')
+          password2 = request.POST.get('password2')
+          
+          if password1 == password2:
+              try:
+                  user = User.objects.create_user(username=username, email=email, password=password1)
+                  messages.success(request, '¡Cuenta creada exitosamente!')
+                  login(request, user)
+              except:
+                  messages.error(request, 'Error al crear la cuenta')
+          else:
+              messages.error(request, 'Las contraseñas no coinciden')
+          return redirect('/')
+    
+    return render(request, 'home.html')
 
 # SignUp View
 def signup_view(request):
@@ -16,7 +46,7 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, '¡Cuenta creada exitosamente! Inicia sesión.')
-            return redirect('login')
+            return redirect('/')
     else:
         form = UserCreationForm()
     return render(request, 'account/signup.html', {'form': form})

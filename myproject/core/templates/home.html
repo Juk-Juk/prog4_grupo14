@@ -18,10 +18,10 @@
       />
     </form> {% endcomment %}
       <div class="text-end">
-        <a href="{% url 'account_login' %}" type="button" class="btn btn-light text-dark me-2">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalLogin" style="margin-right: 3px;">
           Acceder
         </a>
-        <a href="{% url 'account_signup' %}" type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSignup" style="margin-left: 3px;">
           Crear Cuenta
         </a>
     </div>
@@ -31,19 +31,10 @@
 
 <main class="container my-4">
 <h1 >Inicio</h1>
-{% if not user.is_authenticated %}
-  <p>Ingresa para publicar o comprar.</p>
-  <div class="social-login">
-    <a href="{% provider_login_url 'google' %}" role="button" class="btn-social google">
-      <i class="fab fa-google"></i>
-    </a>
-    <a href="{% provider_login_url 'github' %}" role="button" class="btn-social github">
-      <i class="fab fa-github"></i>
-    </a>
-  </div>
-
-{% else %}
+{% if user.is_authenticated %}
   <p>Ya estás logueado ✅. Próximo paso: crear productos y compras.</p>
 {% endif %}
 </main>
+{% include 'modals/login.html' %}
+{% include 'modals/signup.html' %}
 {% endblock %}
