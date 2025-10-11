@@ -30,6 +30,21 @@
   outline: 0;
 }
 
+.nav-link.text-white {
+    border: 2px solid transparent;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link.text-white:hover {
+    /* border-color: rgba(0, 0, 0, 0.5); */
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav-link.text-white.active{
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
 .social-login {
     display: flex;
     justify-content: center; /* Centers the buttons horizontally */

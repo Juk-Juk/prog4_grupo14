@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404 #,redirect
-#from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from .forms import PriceSuggestForm, ChatForm
 from .gemini_client import generate_text, embed_text
 from market.models import Product
 from .models import ProductEmbedding
 #import math
 
+@login_required
 def price_suggest(request):
     sugerencia = None
     prompt_example = (
@@ -30,6 +31,7 @@ def price_suggest(request):
         form = PriceSuggestForm()
     return render(request, "price_suggest.html", {"form": form, "sugerencia": sugerencia})
 
+@login_required
 def ai_chat(request): 
     # Simple ai chat based on current session
     if "ai_chat_history" not in request.session:
@@ -55,6 +57,7 @@ def ai_chat(request):
         form = ChatForm()
     return render(request, "ai_chat.html", {"form": form, "history": history})
 
+@login_required
 def recommend_similar(request, pk):
     # Recommend similar products using embeddings
     producto = get_object_or_404(Product, pk=pk, active=True)

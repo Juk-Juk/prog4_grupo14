@@ -2,7 +2,34 @@
 {% load socialaccount %}
 {% block title %}Home • Mi Mercado{% endblock %}
 
-{% block content %}
+{% block no_main %}
+{% if not user.is_authenticated %}
+<div class="px-3 py-2 border-bottom mb-3">
+  <div class="container d-flex flex-wrap justify-content-end">
+    {% comment %} <form
+      class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto"
+      role="search"
+    >
+      <input
+        type="search"
+        class="form-control bg-dark text-white border-secondary"
+        placeholder="Buscar..."
+        aria-label="Search"
+      />
+    </form> {% endcomment %}
+      <div class="text-end">
+        <a href="{% url 'account_login' %}" type="button" class="btn btn-light text-dark me-2">
+          Acceder
+        </a>
+        <a href="{% url 'account_signup' %}" type="button" class="btn btn-primary">
+          Crear Cuenta
+        </a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<main class="container my-4">
 <h1 >Inicio</h1>
 {% if not user.is_authenticated %}
   <p>Ingresa para publicar o comprar.</p>
@@ -18,4 +45,5 @@
 {% else %}
   <p>Ya estás logueado ✅. Próximo paso: crear productos y compras.</p>
 {% endif %}
+</main>
 {% endblock %}
