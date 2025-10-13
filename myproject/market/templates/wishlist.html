@@ -10,6 +10,15 @@
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
         <div class="card-body">
+          <div class="text-end">
+            <form class="favorite-form" data-product-id="{{ product.id }}" method="POST" action="{% url 'market:toggle_favorite' product.id %}">
+              {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger favorite-btn tooltip-btn">
+                  ❤️
+                  <span class="tooltip-span tooltip-text">🤍 Quitar de la lista de deseos</span>
+                </button>
+              </form>
+          </div>
           <h5 class="card-title">{{ product.title }}</h5>
           <p class="card-text">{{ product.description }}</p>
           <p class="fw-bold text-success">${{ product.price }}</p>
@@ -18,10 +27,6 @@
           {% else %}
             <img src="{% static 'images/no-image-placeholder.jpg' %}" alt="No image" class="product-image">
           {% endif %}
-          <form class="favorite-form" data-product-id="{{ product.id }}" method="POST" action="{% url 'market:toggle_favorite' product.id %}">
-            {% csrf_token %}
-              <button type="submit" class="btn btn-danger favorite-btn w-100 mb-2">❤️ Quitar de la lista de deseos</button>
-            </form>
           {% if product.is_available %}
             <a href="{% url 'market:add_to_cart' product.id %}" class="btn btn-success w-100">Agregar al Carrito</a>
           {% else %}

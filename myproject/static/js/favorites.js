@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 // Update button text and style
                 if (data.is_favorited) {
-                    button.textContent = '❤️ Quitar de la lista de deseos';
-                    button.className = 'btn btn-warning favorite-btn';
+                    button.innerHTML = '❤️ <span class="tooltip-text">🤍 Quitar de la lista de deseos</span>';
+                    button.className = 'btn btn-outline-danger favorite-btn tooltip-btn';
                 } else {
-                    button.textContent = '🤍 Agregar a la lista de deseos';
-                    button.className = 'btn btn-outline-warning favorite-btn';
+                    button.innerHTML = '🤍 <span class="tooltip-text">❤️ Agregar a la lista de deseos</span>';
+                    button.className = 'btn btn-outline-light favorite-btn tooltip-btn';
                 }
                 
                 // Show a toast message

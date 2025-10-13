@@ -1,13 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Nuevo producto{% endblock %} 
+{% block title %}
+{% if product %}Editar{% else %}Crear{% endif %} Producto{% endblock %}
 {% block content %}
 <div class="container mt-5">
   <div class="card shadow p-4">
-    <h2 class="text-center mb-4">Publicar producto</h2>
+    <h2>{% if product %}Editar{% else %}Crear{% endif %} Producto</h2>
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {{ form.as_p }}
+      {% csrf_token %}
+      {{ form.as_p }}
       <div class="text-center">
-        <button type="submit" class="btn btn-primary">Publicar</button>
+        <button type="submit" class="btn btn-primary">
+          {% if product %}Actualizar{% else %}Crear{% endif %} Producto
+        </button>
+        <a href="{% url 'market:my_product_list' %}" class="btn btn-secondary">Cancelar</a>
       </div>
     </form>
   </div>

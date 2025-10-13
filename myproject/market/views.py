@@ -43,18 +43,20 @@ def product_edit(request, pk):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect("market:product_list")
+            messages.success(request, 'Producto actualizado exitosamente')
+            return redirect("market:my_product_list")
+        else:
+            messages.error(request, 'Corrige los errores en el formulario.')
     else:
         form = ProductForm(instance=product)
-    return render(request, "product_form.html", {"form": form})
+    return render(request, "product_form.html", {"form": form, "product":product})
 
 #Delete Product
 @login_required
 def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk, seller=request.user)
     if request.method == "POST":
-        product.active = False
-        product.save()
+        product.delete()
         return redirect("market:my_product_list")
     return render(request, "my_product_list.html", {"product": product})
 

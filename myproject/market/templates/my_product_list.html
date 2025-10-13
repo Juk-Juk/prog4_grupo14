@@ -3,8 +3,8 @@
 {% load static %}
 {% block content %}
 <div>
-  <a class="btn btn-success w-100" href="{% url 'market:product_create' %}">
-    Agregar Producto
+  <a class="btn btn-outline-light" href="{% url 'market:product_create' %}">
+    ➕ Agregar Producto
   </a>
 <div/>
 
@@ -29,21 +29,17 @@
           <p class="text-muted">Stock: {{ product.stock }}</p>
           {% else %}
           <p class="text-danger">No disponible</p>
-          {% endif %} 
-          {% if user.is_authenticated %}
-              <form method="POST" action="{% url 'market:product_delete' product.pk %}" 
-                onsubmit="return confirm('Estas seguro que quieres borrar este producto?');">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-danger w-100">Borrar Producto</button>
-              </form>
-          {% else %}
-          <a
-            href="{% url 'account_login' %}"
-            class="btn btn-outline-primary w-100"
-          >
-            Inicia sesión para comprar
-          </a>
           {% endif %}
+          <div class="btn-group w-100 mt-2" role="group">
+              <a href="{% url 'market:product_edit' product.pk %}" class="btn btn-warning">
+                  Editar
+              </a>
+            <form method="POST" action="{% url 'market:product_delete' product.pk %}" 
+              onsubmit="return confirm('Estas seguro que quieres borrar este producto?');">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger w-100">Borrar Producto</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
