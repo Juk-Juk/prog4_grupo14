@@ -2,16 +2,14 @@ Now:
 🗸 Fix account creation signup
 🗸 Fix the profiles views
 🗸 Swap allauth login, logout, password_reset & signup for custom ones
-□ market_ai/templates/recommendations test <a href="{% url 'market:product_list' p.pk %}" class="btn-primary">Ver</a> for correct pathing and template
-□ market_ai/gemini_client.py set up the use_vertex variable correctly
 🗸 fix home social icons
 🗸 fix ai call in chat
-□ fix profile image not showing
-□ add edit button to own products
-□ translate product_form & login/signup fields to spanish 
+🗸 fix profile image not showing
+🗸 add edit button to own products
+🗸 translate product_form fields to spanish 
 🗸 make dropdown for IA in base.html
-□ modal for sign in and signup
-□ fix home view for signup & password change and signup modal
+🗸 modal for sign in and signup
+□ password_reset modal or page
 
 Eventually:
 🗸 Add cart

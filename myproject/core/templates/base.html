@@ -193,7 +193,7 @@
                 <li><a class="dropdown-item" href="{% url 'profile' %}">Perfil</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <form method="post" action="{% url 'account_logout' %}" class="d-inline">
+                  <form method="post" action="{% url 'logout' %}" class="d-inline">
                   {% csrf_token %}
                   <button class="dropdown-item" type="submit">Cerrar Sesión</button>
                   </form>

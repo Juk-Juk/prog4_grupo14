@@ -67,8 +67,8 @@ def login_view(request):
 # Logout View
 def logout_view(request):
     logout(request)
-    messages.success(request, "You have been logged out successfully.")
-    return redirect('login')
+    messages.success(request, "La sesión se ha cerrado correctamente.")
+    return redirect('/')
 
 # Password Reset View
 def password_reset_view(request):
