@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -36,7 +36,19 @@ def home(request):
           else:
               messages.error(request, 'Las contraseñas no coinciden')
           return redirect('/')
-    
+      elif form_type == 'pwreset':
+          form = PasswordResetForm(request.POST)
+          if form.is_valid():
+              form.save(
+                    request=request,
+                    use_https=request.is_secure(),
+                    email_template_name='registration/password_reset_email.html',
+                    subject_template_name='registration/password_reset_subject.txt',
+                )
+              messages.success(request, 'Se ha enviado un correo con instrucciones para restablecer tu contraseña')
+          else:
+              messages.error(request, 'Por favor ingresa un correo válido')
+          return redirect('/')
     return render(request, 'home.html')
 
 # SignUp View
