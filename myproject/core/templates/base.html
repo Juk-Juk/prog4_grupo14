@@ -14,16 +14,6 @@
 <body data-bs-theme="dark">
   <!--New Navbar-->
   <header>
-    {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
     {% if user.is_authenticated %}
     <div class="px-3 py-2 text-bg-dark border-bottom">
       <div class="container">
@@ -202,6 +192,16 @@
           </ul>
         </div>
       </div>
+    </div>
+    {% endif %}
+    {% if messages %} {% if not user.is_authenticated %}<br><br>{% endif %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
     </div>
     {% endif %}
     {% comment %} {% if not user.is_authenticated %}

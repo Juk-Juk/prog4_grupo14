@@ -4,7 +4,7 @@
 
 {% block no_main %}
 {% if not user.is_authenticated %}
-<div class="px-3 py-2 border-bottom mb-3">
+<div class="px-3 py-2 border-bottom mb-3 fixed-top bg-dark">
   <div class="container d-flex flex-wrap justify-content-end">
     {% comment %} <form
       class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto"
@@ -30,10 +30,209 @@
 {% endif %}
 
 <main class="container my-4">
-<h1 >Inicio</h1>
-{% if user.is_authenticated %}
-  <p>Ya estás logueado ✅. Próximo paso: crear productos y compras.</p>
-{% endif %}
+  <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" style="max-height: 70vh; overflow: hidden;">
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#myCarousel"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#myCarousel"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#myCarousel"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+    </div>
+    
+    <div class="carousel-inner" style="height: 70vh; position: relative;">
+      <div class="carousel-item active" style="height: 100%;">
+        <svg
+          aria-hidden="true"
+          style="height: 100%; width: 100%; display: block;"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="100%" height="100%" fill="#6c757d"></rect>
+        </svg>
+        <div class="carousel-caption">
+          <h1>Compra y Vende con Confianza</h1>
+          <p>Miles de productos disponibles de vendedores verificados en tu comunidad</p>
+          <p><button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#modalLogin">Inicia Sesión para Comenzar</button></p>
+        </div>
+      </div>
+      
+      <div class="carousel-item" style="height: 100%;">
+        <svg
+          aria-hidden="true"
+          style="height: 100%; width: 100%; display: block;"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="100%" height="100%" fill="#6c757d"></rect>
+        </svg>
+        <div class="carousel-caption">
+          <h1>Encuentra las Mejores Ofertas</h1>
+          <p>Desde electrónica hasta moda, todo lo que necesitas en un solo lugar</p>
+          <p><a class="btn btn-lg btn-primary" href="/products/my_products">Ver Ofertas</a></p>
+        </div>
+      </div>
+      
+      <div class="carousel-item" style="height: 100%;">
+        <svg
+          aria-hidden="true"
+          style="height: 100%; width: 100%; display: block;"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="100%" height="100%" fill="#6c757d"></rect>
+        </svg>
+        <div class="carousel-caption">
+          <h1>Compra y Vende con Confianza</h1>
+          <p>Publica tus productos en minutos y alcanza miles de compradores potenciales</p>
+          <p><button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#modalLogin">Comenzar a Vender</button></p>
+        </div>
+      </div>
+    </div>
+    
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#myCarousel"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#myCarousel"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div>
+    <hr class="featurette-divider" />
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">
+          Publicación Rápida y Sencilla
+          <span class="text-body-secondary"></span>
+        </h2>
+        <p class="lead">
+          Crea tu anuncio en menos de 2 minutos. 
+          Sube fotos, pon tu precio y listo. 
+          Sin complicaciones, sin tarifas ocultas
+        </p>
+      </div>
+      <div class="col-md-5">
+        <svg
+          aria-label="Placeholder: 500x500"
+          class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+          height="500"
+          preserveAspectRatio="xMidYMid slice"
+          role="img"
+          width="500"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>Placeholder</title>
+          <rect
+            width="100%"
+            height="100%"
+            fill="var(--bs-secondary-bg)"
+          ></rect>
+          <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
+            500x500
+          </text>
+        </svg>
+      </div>
+    </div>
+    <hr class="featurette-divider" />
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading fw-normal lh-1">
+          Lista de Deseos Inteligente
+          <span class="text-body-secondary"></span>
+        </h2>
+        <p class="lead">
+          Guarda tus productos favoritos y recibe notificaciones cuando bajen de precio. 
+          Nunca pierdas una gran oferta
+        </p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <svg
+          aria-label="Placeholder: 500x500"
+          class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+          height="500"
+          preserveAspectRatio="xMidYMid slice"
+          role="img"
+          width="500"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>Placeholder</title>
+          <rect
+            width="100%"
+            height="100%"
+            fill="var(--bs-secondary-bg)"
+          ></rect>
+          <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
+            500x500
+          </text>
+        </svg>
+      </div>
+    </div>
+    <hr class="featurette-divider" />
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">
+          Carrito de Compras Seguro
+          <span class="text-body-secondary"></span>
+        </h2>
+        <p class="lead">
+          Compra múltiples productos de diferentes vendedores de forma segura. 
+          Gestiona tus compras fácilmente desde un solo lugar.
+        </p>
+      </div>
+      <div class="col-md-5">
+        <svg
+          aria-label="Placeholder: 500x500"
+          class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+          height="500"
+          preserveAspectRatio="xMidYMid slice"
+          role="img"
+          width="500"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>Placeholder</title>
+          <rect
+            width="100%"
+            height="100%"
+            fill="var(--bs-secondary-bg)"
+          ></rect>
+          <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
+            500x500
+          </text>
+        </svg>
+      </div>
+    </div>
+    <hr class="featurette-divider" />
+  </div>
+  {% if user.is_authenticated %}
+    <p>Ya estás logueado ✅. Próximo paso: crear productos y compras.</p>
+  {% endif %}
 </main>
 {% include 'modals/login.html' %}
 {% include 'modals/signup.html' %}

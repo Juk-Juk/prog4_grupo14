@@ -208,4 +208,7 @@ __marimo__/
 
 # Custom
 PARA PRODUCCION.txt
-media
+
+# Media
+myproject/media/avatars
+myproject/media/product_images

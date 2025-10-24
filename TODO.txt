@@ -1,19 +1,18 @@
 Now:
-🗸 Fix account creation signup
-🗸 Fix the profiles views
-🗸 Swap allauth login, logout, password_reset & signup for custom ones
-🗸 fix home social icons
-🗸 fix ai call in chat
-🗸 fix profile image not showing
-🗸 add edit button to own products
-🗸 translate product_form fields to spanish 
-🗸 make dropdown for IA in base.html
-🗸 modal for sign in and signup
-□ password_reset modal or page
+□ Make a home that represents the page and not show it to the logged user
+□ Add categories to the product form so it can be used as a dropdown filter
+□ Add pages and filters to the product list and market itself
+□ Create a profile page (edit/delete user, add nickname)
+□ Fix cart and make it pretty
+□ Fix AI or get rid of it completely
+□ Add favicon and market logo
+□ Have the edit template pretype the product's details
+□ Get rid of login_required for product_list to allow browsing
 
 Eventually:
 🗸 Add cart
 🗸 Add wishlist
-□ Add filter for product_list
-□ Make profile page
 🗸 Create a page to list all other people's product separated from the profile owner ones
+□ Add Chat between users
+□ Add Mercado Pago integration
+□ Look at the product's whole picture on hover
