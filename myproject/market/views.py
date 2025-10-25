@@ -4,16 +4,64 @@ from .forms import ProductForm
 from .models import Product, Cart, CartItem
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 @login_required
 def product_list(request):
     products = Product.objects.filter(active=True).exclude(seller=request.user).order_by("-created_at")
-    return render(request, "product_list.html", {"products": products})
+    category_filter = request.GET.get('category', '')
+    search_query = request.GET.get('search', '')
+
+    if category_filter:
+        products = products.filter(category=category_filter)
+
+    if search_query:
+        products = products.filter(
+            Q(title__icontains=search_query) | 
+            Q(description__icontains=search_query) |
+            Q(brand__icontains=search_query)
+        )
+
+    paginator = Paginator(products, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    categories = Product.CATEGORY_CHOICES
+
+    return render(request, "product_list.html", {
+        "page_obj": page_obj,
+        "categories": categories,
+        "selected_category": category_filter,
+        "search_query": search_query,
+    })
 
 @login_required
 def my_product_list(request):
     products = Product.objects.filter(active=True, seller=request.user).order_by("-created_at")
-    return render(request, "my_product_list.html", {"products": products})
+    category_filter = request.GET.get('category', '')
+    search_query = request.GET.get('search', '')
+
+    if category_filter:
+        products = products.filter(category=category_filter)
+
+    if search_query:
+        products = products.filter(
+            Q(title__icontains=search_query) | 
+            Q(description__icontains=search_query) |
+            Q(brand__icontains=search_query)
+        )
+
+    paginator = Paginator(products, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    categories = Product.CATEGORY_CHOICES
+
+    return render(request, "my_product_list.html", {
+        "page_obj": page_obj,
+        "categories": categories,
+        "selected_category": category_filter,
+        "search_query": search_query,
+    })
 
 #Create Product
 @login_required

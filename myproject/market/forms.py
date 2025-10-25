@@ -4,9 +4,20 @@ from .models import Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ["title", "description", "brand", "price", "stock", "image"]
+        fields = ['title', 'description', 'price', 'category', 'image']
         widgets = {
-            "description": forms.Textarea(attrs={"rows": 3}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'title': 'Título',
+            'description': 'Descripción',
+            'price': 'Precio',
+            'category': 'Categoría',
+            'image': 'Imagen',
         }
 
     def clean_image(self):

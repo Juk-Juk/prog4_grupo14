@@ -2,11 +2,24 @@ from django.conf import settings
 from django.db import models
 
 class Product(models.Model):
+    CATEGORY_CHOICES = [
+        ('electronics', 'Electrónica'),
+        ('fashion', 'Moda y Ropa'),
+        ('home', 'Hogar y Jardín'),
+        ('sports', 'Deportes'),
+        ('books', 'Libros'),
+        ('toys', 'Juguetes'),
+        ('beauty', 'Belleza y Cuidado Personal'),
+        ('automotive', 'Automotriz'),
+        ('food', 'Alimentos y Bebidas'),
+        ('other', 'Otros'),
+    ]
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="products")
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     brand = models.CharField(max_length=100, blank=True, default="Generico")
     price = models.DecimalField(max_digits=12, decimal_places=2)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='other')
     stock = models.PositiveIntegerField(default=1)
     image = models.ImageField(upload_to="product_images/", blank=True, null=True)  # Optional
     active = models.BooleanField(default=True)

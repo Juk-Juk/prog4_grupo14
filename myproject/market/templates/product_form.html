@@ -1,41 +1,15 @@
 {% extends "base.html" %}
-{% block title %}
-{% if product %}Editar{% else %}Crear{% endif %} Producto{% endblock %}
+{% block title %}{% if product %}Editar{% else %}Crear{% endif %} Producto{% endblock %}
 {% block content %}
 <div class="container mt-5">
-  <div class="card shadow p-4">
     <h2>{% if product %}Editar{% else %}Crear{% endif %} Producto</h2>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-       <label for="id_title">Título:</label>
-        <input type="text" name="title" id="id_title" required>
-        <br><br>
-        
-        <label for="id_description">Descripción:</label>
-        <textarea name="description" id="id_description" rows="3" required></textarea>
-        <br><br>
-        
-        <label for="id_brand">Marca:</label>
-        <input type="text" name="brand" id="id_brand" required>
-        <br><br>
-        
-        <label for="id_price">Precio:</label>
-        <input type="number" name="price" id="id_price" step="0.01" required>
-        <br><br>
-        
-        <label for="id_stock">Stock:</label>
-        <input type="number" name="stock" id="id_stock" required>
-        <br><br>
-        
-        <label for="id_image">Imagen:</label>
-        <input type="file" name="image" id="id_image" accept="image/*">
-      <div class="text-center">
-        <button type="submit" class="btn btn-primary">
-          {% if product %}Actualizar{% else %}Crear{% endif %} Producto
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">
+            {% if product %}Actualizar{% else %}Crear{% endif %} Producto
         </button>
         <a href="{% url 'market:my_product_list' %}" class="btn btn-secondary">Cancelar</a>
-      </div>
     </form>
-  </div>
 </div>
 {% endblock %}
