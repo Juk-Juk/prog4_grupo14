@@ -108,29 +108,89 @@ def product_delete(request, pk):
         return redirect("market:my_product_list")
     return render(request, "my_product_list.html", {"product": product})
 
+#Add to Cart
 @login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+    
+    # Get quantity from POST request, default to 1
+    quantity = int(request.POST.get('quantity', 1))
+    
     cart, created = Cart.objects.get_or_create(user=request.user)
-    item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    item.quantity += 1
+    item, item_created = CartItem.objects.get_or_create(cart=cart, product=product)
+    
+    # Calculate new total quantity in cart
+    new_quantity = item.quantity + quantity if not item_created else quantity
+    
+    # Check if there's enough stock for the total quantity
+    if new_quantity > product.stock:
+        messages.error(request, f'Solo hay {product.stock} unidades disponibles')
+        return redirect(request.META.get('HTTP_REFERER', 'market:product_list'))
+    
+    # Update cart item quantity
+    item.quantity = new_quantity
     item.save()
-    messages.success(request, 'Producto agregado al carrito')
+
+    # Decrease product stock
+    product.stock -= quantity
+    product.save()
+    
+    messages.success(request, f'{quantity} producto(s) agregado(s) al carrito')
     return redirect("market:view_cart")
 
+#Delete from Cart
 @login_required
 def remove_from_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart = get_object_or_404(Cart, user=request.user)
     cart_item = get_object_or_404(CartItem, cart=cart, product=product)
+
+    # Restore stock when removing from cart
+    product.stock += cart_item.quantity
+    product.active = True 
+    product.save()
+
     cart_item.delete()
     messages.success(request, 'Producto eliminado del carrito')
     return redirect("market:view_cart")
 
+#View Cart
 @login_required
 def view_cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     return render(request, "shopping_cart.html", {"cart": cart})
+
+#Update Cart
+@login_required
+def update_cart_quantity(request, product_id):
+    if request.method == "POST":
+        product = get_object_or_404(Product, id=product_id)
+        cart = get_object_or_404(Cart, user=request.user)
+        cart_item = get_object_or_404(CartItem, cart=cart, product=product)
+        
+        action = request.POST.get('action')
+        
+        if action == 'increase':
+            if product.stock >= 1:
+                cart_item.quantity += 1
+                product.stock -= 1
+                cart_item.save()
+                product.save()
+                messages.success(request, 'Cantidad actualizada')
+            else:
+                messages.error(request, 'No hay mas stock disponible')
+        
+        elif action == 'decrease':
+            if cart_item.quantity > 1:
+                cart_item.quantity -= 1
+                product.stock += 1
+                cart_item.save()
+                product.save()
+                messages.success(request, 'Cantidad actualizada')
+            else:
+                messages.error(request, 'La cantidad mínima es 1')
+    
+    return redirect("market:view_cart")
 
 @login_required
 def toggle_favorite(request, product_id):
@@ -157,3 +217,21 @@ def toggle_favorite(request, product_id):
 def wishlist(request):
     favorite_products = Product.objects.filter(favorited_by=request.user, active=True)
     return render(request, "wishlist.html", {"products": favorite_products})
+
+""" @login_required
+def checkout(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    
+    # Decrease stock for all items
+    for item in cart.items.all():
+        product = item.product
+        product.stock -= item.quantity
+        if product.stock == 0:
+            product.active = False
+        product.save()
+    
+    # Clear cart after purchase
+    cart.items.all().delete()
+    
+    messages.success(request, '¡Compra realizada exitosamente!')
+    return redirect('market:product_list') """

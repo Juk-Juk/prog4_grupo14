@@ -6,7 +6,7 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-outline-light">
             {% if product %}Actualizar{% else %}Crear{% endif %} Producto
         </button>
         <a href="{% url 'market:my_product_list' %}" class="btn btn-secondary">Cancelar</a>

@@ -1,21 +1,139 @@
 {% extends "base.html" %}
-{% block title %}Mi Carrito{% endblock %}
-
+{% block title %}Mi Carrito • Mi Mercado{% endblock %}
+{% load static %}
 {% block content %}
-<h2>Carrito De Compras</h2>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-cart3"></i> Carrito de Compras</h2>
+            </div>
 
-{% if cart.items.all %}
-  <ul>
-    {% for item in cart.items.all %}
-      <li>{{ item.product.title }} (x{{ item.quantity }}) — ${{ item.subtotal }}</li>
-      <form method="POST" action="{% url 'market:remove_from_cart' item.product.id %}">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-      </form>
-    {% endfor %}
-  </ul>
-  <p><strong>Total:</strong> ${{ cart.total }}</p>
-{% else %}
-  <p>Tu carrito está vacío.</p>
-{% endif %}
+            {% if cart.items.all %}
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    {% for item in cart.items.all %}
+                    <div class="row align-items-center border-bottom p-3 {% if forloop.last %}border-0{% endif %}">
+                        <!-- Product Image -->
+                        <div class="col-md-2">
+                            {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="img-fluid rounded" style="max-height: 100px; object-fit: cover;">
+                            {% else %}
+                            <img src="{% static 'images/no-image-placeholder.jpg' %}" alt="No image" class="img-fluid rounded" style="max-height: 100px; object-fit: cover;">
+                            {% endif %}
+                        </div>
+
+                        <!-- Product Details -->
+                        <div class="col-md-4">
+                            <h5 class="mb-1">{{ item.product.title }}</h5>
+                            <p class="text-muted small mb-1">{{ item.product.description|truncatewords:10 }}</p>
+                            <span class="badge bg-secondary">{{ item.product.get_category_display }}</span>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="col-md-2 text-center">
+                            <p class="mb-0 fw-bold">${{ item.product.price }}</p>
+                            <small class="text-muted">c/u</small>
+                        </div>
+
+                        <!-- Quantity Controls -->
+                        <div class="col-md-2">
+                            <div class="d-flex align-items-center justify-content-center gap-2">
+                                <form method="POST" action="{% url 'market:update_cart_quantity' item.product.id %}" class="m-0">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="decrease">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" {% if item.quantity <= 1 %}disabled{% endif %}>
+                                        <i class="bi bi-dash"></i>
+                                    </button>
+                                </form>
+
+                                <span class="fw-bold px-2">{{ item.quantity }}</span>
+
+                                <form method="POST" action="{% url 'market:update_cart_quantity' item.product.id %}" class="m-0">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="increase">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" {% if item.product.stock < 1 %}disabled{% endif %}>
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            {% if item.product.stock < 1 %}
+                            <small class="text-danger d-block text-center mt-1">Sin stock</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Subtotal and Remove -->
+                        <div class="col-md-2 text-end">
+                            <p class="mb-2 fw-bold text-success">${{ item.subtotal }}</p>
+                            <form method="POST" action="{% url 'market:remove_from_cart' item.product.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar del carrito">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="card shadow-sm text-center py-5">
+                <div class="card-body">
+                    <i class="bi bi-cart-x" style="font-size: 4rem; color: #6c757d;"></i>
+                    <h4 class="mt-3">Tu carrito está vacío</h4>
+                    <p class="text-muted">Agrega productos para empezar a comprar</p>
+                    <a href="{% url 'market:product_list' %}" class="btn btn-dark mt-3">
+                        <i class="bi bi-shop"></i> Explorar Productos
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        {% if cart.items.all %}
+        <div class="col-lg-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">
+                        <i class="bi bi-receipt"></i> Resumen del Pedido
+                    </h5>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Subtotal ({{ cart.items.count }} producto/s)</span>
+                        <span>${{ cart.total }}</span>
+                    </div>
+                    
+                    {% comment %} <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Envío</span>
+                        <span class="text-success">Gratis</span>
+                    </div> {% endcomment %}
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-4">
+                        <strong>Total</strong>
+                        <strong class="text-success" style="font-size: 1.5rem;">${{ cart.total }}</strong>
+                    </div>
+                    
+                    <button class="btn btn-light w-100 mb-2">
+                        <i class="bi bi-credit-card"></i> Proceder al Pago
+                    </button>
+                    
+                    <a href="{% url 'market:product_list' %}" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-arrow-left"></i> Continuar Comprando
+                    </a>
+                    
+                    <div class="mt-4 p-3 rounded">
+                        <small class="text-muted">
+                            <i class="bi bi-shield-check"></i> <strong>Compra segura</strong><br>
+                            Todos tus datos están protegidos
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
