@@ -44,6 +44,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',           # <-- Allauth requirement
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 THIRD_PARTY_APPS = [

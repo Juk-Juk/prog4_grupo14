@@ -1,10 +1,98 @@
 {% extends "base.html" %}
+{% load static %}
+{% block title %}Editar Perfil • Mi Mercado{% endblock %}
 
 {% block content %}
-<h2>Editar perfil</h2>
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Guardar</button>
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3><i class="bi bi-pencil-square"></i> Editar Perfil</h3>
+                    </div>
+                    
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Avatar Preview -->
+                        <div class="text-center mb-4">
+                            {% if form.instance.avatar %}
+                            <img src="{{ form.instance.avatar.url }}" id="avatar-preview" alt="Avatar" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa;">
+                            {% else %}
+                            <div id="avatar-placeholder" class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px; border: 4px solid #f8f9fa;">
+                                <i class="bi bi-person-fill text-white" style="font-size: 4rem;"></i>
+                            </div>
+                            <img src="" id="avatar-preview" alt="Avatar" class="rounded-circle mb-3 d-none" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa;">
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Avatar Upload -->
+                        <div class="mb-3">
+                            <label for="{{ form.avatar.id_for_label }}" class="form-label">
+                                <i class="bi bi-image"></i> Foto de Perfil
+                            </label>
+                            <input type="file" name="avatar" class="form-control" id="{{ form.avatar.id_for_label }}" accept="image/*">
+                            {% if form.avatar.errors %}
+                                <div class="text-danger mt-1">{{ form.avatar.errors }}</div>
+                            {% endif %}
+                            <small class="text-muted">Formatos permitidos: JPG, PNG. Tamaño máximo: 5MB</small>
+                        </div>
+                        
+                        <!-- Bio -->
+                        <div class="mb-3">
+                            <label for="{{ form.bio.id_for_label }}" class="form-label">
+                                <i class="bi bi-chat-left-text"></i> Biografía
+                            </label>
+                            <textarea name="bio" class="form-control" id="{{ form.bio.id_for_label }}" rows="5" placeholder="Cuéntanos sobre ti...">{{ form.bio.value|default:'' }}</textarea>
+                            {% if form.bio.errors %}
+                                <div class="text-danger mt-1">{{ form.bio.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Website -->
+                        <div class="mb-4">
+                            <label for="{{ form.website.id_for_label }}" class="form-label">
+                                <i class="bi bi-globe"></i> Sitio Web
+                            </label>
+                            <input type="url" name="website" class="form-control" id="{{ form.website.id_for_label }}" value="{{ form.website.value|default:'' }}" placeholder="https://ejemplo.com">
+                            {% if form.website.errors %}
+                                <div class="text-danger mt-1">{{ form.website.errors }}</div>
+                            {% endif %}
+                        </div>
+                        {% comment %} Juk was here c: {% endcomment %}
+                        <!-- Buttons -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-dark flex-grow-1">
+                                <i class="bi bi-check-circle"></i> Guardar Cambios
+                            </button>
+                            <a href="{% url 'profile' %}" class="btn btn-outline-secondary">
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Preview avatar before upload
+document.getElementById('{{ form.avatar.id_for_label }}').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const preview = document.getElementById('avatar-preview');
+            const placeholder = document.getElementById('avatar-placeholder');
+            
+            preview.src = event.target.result;
+            preview.classList.remove('d-none');
+            if (placeholder) placeholder.classList.add('d-none');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
 {% endblock %}

@@ -40,25 +40,6 @@
           >
             <li>
               <a 
-                href="{% url 'home' %}" 
-                class="nav-link text-white {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-              >
-                <svg
-                  class="bi d-block mx-auto mb-1"
-                  width="24"
-                  height="24"
-                  aria-hidden="true"
-                >
-              <symbol id="home" viewBox="0 0 16 16">
-                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" fill="white"/>
-              </symbol>
-                  <use xlink:href="#home"></use>
-                </svg>
-                Home
-              </a>
-            </li>
-            <li>
-              <a 
                 href="{% url 'market:my_product_list' %}" 
                 class="nav-link text-white {% if request.resolver_match.url_name == 'my_product_list' %}active{% endif %}"
               >
@@ -205,23 +186,6 @@
         {% endfor %}
     </div>
     {% endif %}
-    {% comment %} {% if not user.is_authenticated %}
-    <div class="px-3 py-2 border-bottom mb-3">
-      <div class="container d-flex flex-wrap justify-content-end">
-        <form
-          class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto"
-          role="search"
-        >
-          <input
-            type="search"
-            class="form-control bg-dark text-white border-secondary"
-            placeholder="Buscar..."
-            aria-label="Search"
-          />
-        {% endif %}
-        </div>
-      </div>
-    </div> {% endcomment %}
   </header>
 
   <!-- Content -->

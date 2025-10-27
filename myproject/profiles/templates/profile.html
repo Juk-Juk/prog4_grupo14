@@ -1,6 +1,135 @@
-<h2>{{ request.user.username }}</h2>
-<p>{{ profile.bio }}</p>
-{% if profile.avatar %}
-  <img src="{{ profile.avatar.url }}" alt="avatar">
-{% endif %}
-<a href="{% url 'edit_profile' %}">Editar perfil</a>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Perfil de {{ user.username }} • Mi Mercado{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Profile Card -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <!-- Avatar -->
+                    {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="{{ user.username }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa;">
+                    {% else %}
+                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px; border: 4px solid #f8f9fa;">
+                        <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random" 
+                          alt="Avatar" 
+                          class="rounded-circle"
+                          style="font-size: 4rem;"
+                          width="142" height="142">
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Username -->
+                    <h3 class="mb-1">{{ user.username }}</h3>
+                    
+                    <!-- Email -->
+                    {% if user.email %}
+                    <p class="text-muted mb-3">
+                        <i class="bi bi-envelope"></i> {{ user.email }}
+                    </p>
+                    {% endif %}
+                    
+                    <!-- Website -->
+                    {% if profile.website %}
+                    <p class="mb-3">
+                        <a href="{{ profile.website }}" target="_blank" class="text-decoration-none">
+                            <i class="bi bi-globe"></i> Visitar sitio web
+                        </a>
+                    </p>
+                    {% endif %}
+                    
+                    <!-- Edit Button -->
+                    <a href="{% url 'edit_profile' %}" class="btn btn-dark w-100">
+                        <i class="bi bi-pencil"></i> Editar Perfil
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Stats Card -->
+            <div class="card shadow-sm mt-3">
+                <div class="card-body">
+                    <h6 class="card-title text-muted mb-3">
+                        <i class="bi bi-graph-up"></i> Estadísticas
+                    </h6>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Productos publicados</span>
+                        <strong>{{ user.product_set.count }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Productos favoritos</span>
+                        <strong>{{ user.favorite_products.count }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Miembro desde</span>
+                        <strong>{{ user.date_joined|date:"M Y" }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bio and Content -->
+        <div class="col-lg-8">
+            <!-- Bio Card -->
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="bi bi-person-lines-fill"></i> Biografía
+                    </h5>
+                    {% if profile.bio %}
+                    <p class="card-text">{{ profile.bio|linebreaks }}</p>
+                    {% else %}
+                    <p class="text-muted">
+                        <i class="bi bi-info-circle"></i> No has agregado una biografía aún.
+                        <a href="{% url 'edit_profile' %}">Agregar ahora</a>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Recent Products -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-box-seam"></i> Productos Recientes
+                        </h5>
+                        <a href="{% url 'market:my_product_list' %}" class="btn btn-sm btn-outline-dark">
+                            Ver todos
+                        </a>
+                    </div>
+                    
+                    {% if user.product_set.all %}
+                    <div class="row">
+                        {% for product in user.product_set.all|slice:":3" %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                                {% else %}
+                                <div class="bg-secondary d-flex align-items-center justify-content-center" style="height: 150px;">
+                                    <i class="bi bi-image text-white" style="font-size: 2rem;"></i>
+                                </div>
+                                {% endif %}
+                                <div class="card-body p-2">
+                                    <h6 class="card-title mb-1">{{ product.title|truncatewords:3 }}</h6>
+                                    <p class="text-success fw-bold mb-0">${{ product.price }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">
+                        No has publicado productos aún.
+                        <a href="{% url 'market:product_create' %}">Publicar ahora</a>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
