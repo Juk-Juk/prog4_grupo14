@@ -6,10 +6,14 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.contrib.auth.models import AnonymousUser
 
-@login_required
+
 def product_list(request):
-    products = Product.objects.filter(active=True).exclude(seller=request.user).order_by("-created_at")
+    if not request.user.is_anonymous:
+        products = Product.objects.filter(active=True).exclude(seller=request.user).order_by("-created_at")
+    else:
+        products = Product.objects.filter(active=True).order_by("-created_at")
     category_filter = request.GET.get('category', '')
     search_query = request.GET.get('search', '')
 
