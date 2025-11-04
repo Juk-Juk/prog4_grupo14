@@ -4,7 +4,13 @@ from .forms import ProfileForm
 
 @login_required
 def profile_view(request):
-    return render(request, "profile.html", {"profile": request.user.profile})
+    profile = request.user.profile
+    recent_products = request.user.products.all().filter(active=True).order_by('-created_at')[:3]
+    
+    return render(request, "profile.html", {
+        "profile": profile,
+        "recent_products": recent_products,
+    })
 
 @login_required
 def edit_profile(request):

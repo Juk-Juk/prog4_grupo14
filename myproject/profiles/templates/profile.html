@@ -96,14 +96,14 @@
                         <h5 class="card-title mb-0">
                             <i class="bi bi-box-seam"></i> Productos Recientes
                         </h5>
-                        <a href="{% url 'market:my_product_list' %}" class="btn btn-sm btn-outline-dark">
+                        <a href="{% url 'market:my_product_list' %}" class="btn btn-sm btn-outline-light">
                             Ver todos
                         </a>
                     </div>
                     
-                    {% if user.product_set.all %}
+                    {% if recent_products %}
                     <div class="row">
-                        {% for product in user.product_set.all|slice:":3" %}
+                        {% for product in recent_products %}
                         <div class="col-md-4 mb-3">
                             <div class="card h-100">
                                 {% if product.image %}

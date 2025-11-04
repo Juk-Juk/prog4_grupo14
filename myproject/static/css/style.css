@@ -129,3 +129,7 @@
     visibility: visible;
     opacity: 1;
 }
+
+.outlined-text {
+    text-shadow: 2px 2px 4px #ffffff, -2px -2px 4px #ffffff, 2px -2px 4px #ffffff, -2px 2px 4px #ffffff;
+}

@@ -17,7 +17,7 @@ def home(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Bienvenido/a!')
-            return redirect('/products/my_products')
+            return redirect('/products')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
             return redirect('/')
