@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .forms import ProductForm
 from .models import Product, Cart, CartItem
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator
-from django.contrib.auth.models import AnonymousUser
+from django.conf import settings
+import mercadopago
+import environ
 
+env = environ.Env()
 
 def product_list(request):
     if not request.user.is_anonymous:
@@ -221,6 +225,51 @@ def toggle_favorite(request, product_id):
 def wishlist(request):
     favorite_products = Product.objects.filter(favorited_by=request.user, active=True)
     return render(request, "wishlist.html", {"products": favorite_products})
+
+@login_required
+@require_POST
+def process_cart_payment(request):
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_items = cart.items.all()
+        api_key = env("MERCADOPAGO_ACCESS_TOKEN")
+        
+        if not cart_items:
+            return JsonResponse({'error': 'Carrito vacío'}, status=400)
+        
+        # Initialize MercadoPago SDK
+        sdk = mercadopago.SDK(api_key)
+        
+        # Prepare items for MercadoPago
+        items = []
+        for item in cart_items:
+            items.append({
+                "title": item.product.title,
+                "quantity": item.quantity,
+                "unit_price": float(item.product.price),
+                "currency_id": "ARS",
+            })
+        
+        # Create preference
+        preference_data = {
+            "items": items,
+            "back_urls": {
+                "success": request.build_absolute_uri("/pago-exitoso/"),
+                "failure": request.build_absolute_uri("/products/cart/"),
+                "pending": request.build_absolute_uri("/pago-pendiente/"),
+            },
+            "auto_return": "approved",
+        }
+        preference = sdk.preference().create(preference_data)
+        return JsonResponse({
+            "init_point": preference["response"]["init_point"]
+        })
+        
+        
+    except Cart.DoesNotExist:
+        return JsonResponse({'error': 'Carrito no encontrado'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 """ @login_required
 def checkout(request):

@@ -13,14 +13,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import environ
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -45,6 +42,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',           # <-- Allauth requirement
     'django_cleanup.apps.CleanupConfig',
+    'django_extensions'
 ]
 
 THIRD_PARTY_APPS = [

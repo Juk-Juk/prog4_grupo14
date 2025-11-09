@@ -104,11 +104,6 @@
                         <span>${{ cart.total }}</span>
                     </div>
                     
-                    {% comment %} <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Envío</span>
-                        <span class="text-success">Gratis</span>
-                    </div> {% endcomment %}
-                    
                     <hr>
                     
                     <div class="d-flex justify-content-between mb-4">
@@ -116,7 +111,7 @@
                         <strong class="text-success" style="font-size: 1.5rem;">${{ cart.total }}</strong>
                     </div>
                     
-                    <button class="btn btn-light w-100 mb-2">
+                    <button class="btn btn-light w-100 mb-2" onclick="pagar()">
                         <i class="bi bi-credit-card"></i> Proceder al Pago
                     </button>
                     
@@ -136,4 +131,5 @@
         {% endif %}
     </div>
 </div>
+<script src="{% static 'js/payment.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,22 @@
+databases:
+  - name: myproject-db
+    plan: free
+
+services:
+  - type: web
+    name: myproject-web
+    env: python
+    plan: free
+    repo: https://github.com/Juk-Juk/prog4_grupo14
+    branch: main
+    buildCommand: './build.sh'
+    startCommand: 'gunicorn myproject.wsgi:application --bind 0.0.0.0:$PORT --workers $WEB_CONCURRENCY'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: myproject-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: "2"

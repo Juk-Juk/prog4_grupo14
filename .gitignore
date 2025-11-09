@@ -208,6 +208,10 @@ __marimo__/
 
 # Custom
 PARA PRODUCCION.txt
+settings(prod).py
+settings(dev).py
+cert.crt
+cert.key
 
 # Media
 myproject/media/avatars
