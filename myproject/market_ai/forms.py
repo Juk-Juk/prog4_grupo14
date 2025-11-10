@@ -8,4 +8,24 @@ class PriceSuggestForm(forms.Form):
     current_price = forms.DecimalField(max_digits=12, decimal_places=2, required=False)
 
 class ChatForm(forms.Form):
-    message = forms.CharField(widget=forms.Textarea(attrs={"rows":2}), label="Tu mensaje")
+    message = forms.CharField(
+        max_length=500,  # Limit message length
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Escribe tu mensaje aquí...',
+            'autocomplete': 'off',
+            'id': 'id_message',
+            'maxlength': '500'
+        }),
+        label='',
+        error_messages={
+            'required': 'Por favor escribe un mensaje',
+            'max_length': 'El mensaje es demasiado largo (máximo 500 caracteres)'
+        }
+    )
+    
+    def clean_message(self):
+        message = self.cleaned_data.get('message', '').strip()
+        if len(message) < 2:
+            raise forms.ValidationError('El mensaje debe tener al menos 2 caracteres')
+        return message

@@ -1,0 +1,73 @@
+/* Chat message bubbles */
+.message-bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.ai-message {
+    background-color: #00376eff;
+    border: 1px solid #e9ecef;
+    border-bottom-left-radius: 4px;
+}
+
+/* Chat container auto-scroll */
+#chat-container {
+    scroll-behavior: smooth;
+}
+
+/* Input styling */
+#id_message {
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+}
+
+#id_message:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Suggestion links */
+.suggestion-link {
+    padding: 4px 8px;
+    margin-left: 8px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    font-size: 0.85rem;
+}
+
+.suggestion-link:hover {
+    background-color: #e9ecef;
+}
+
+/* Send button */
+.btn-dark {
+    border-radius: 25px;
+    padding: 12px 24px;
+}
+
+/* Smooth animations */
+.message-bubble {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

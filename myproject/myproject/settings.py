@@ -42,7 +42,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',           # <-- Allauth requirement
     'django_cleanup.apps.CleanupConfig',
-    'django_extensions'
+    # 'django_extensions'             #!Uncomment for SSL testing
 ]
 
 THIRD_PARTY_APPS = [
@@ -58,6 +58,7 @@ OWN_APPS = [
     "market",
     "profiles",
     "market_ai",
+    "receipts",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + OWN_APPS
@@ -73,7 +74,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/'
 ACCOUNT_SIGNUP_FIELDS = ["email", "username", "password1", "password2"]
-#ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True #Idk what this is about
 
 # (opcional) Config de allauth
 ACCOUNT_LOGIN_METHODS = {"email", "username"}
@@ -146,6 +146,7 @@ SOCIALACCOUNT_PROVIDERS = {
         "SCOPE": ["user:email"],
     },
 }
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 
 

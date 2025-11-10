@@ -6,17 +6,17 @@ Now:
 🗸 Create a profile page (edit/delete user, add nickname)
 🗸 Have the edit template pretype the product's details
 🗸 Get rid of login_required for product_list to allow browsing
-□ Add Mercado Pago integration
-□ Add Chat between users
-□ Add pdf for checkout
-□ Add favicon and market logo
+🗸 Add Mercado Pago integration
+🗸 Add pdf for checkout
+🗸 Add favicon and market logo
 □ Fix AI or get rid of it completely
-□ Add sort for product_list and market
 
 Eventually:
 🗸 Add cart
 🗸 Add wishlist
 🗸 Create a page to list all other people's product separated from the profile owner ones
+□ Add Chat between users
+□ Add sort for product_list and market
 □ Add notifications to the profile dropdown
 □ Look at the product's whole picture on hover
 □ add_to_cart shouldn't decrease the stock as soon as the item gets added to the cart, but rather when the transaction is completed

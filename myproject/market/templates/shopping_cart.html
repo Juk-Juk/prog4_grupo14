@@ -93,7 +93,7 @@
         <!-- Order Summary Sidebar -->
         {% if cart.items.all %}
         <div class="col-lg-4">
-            <div class="card shadow-sm sticky-top" style="top: 20px;">
+            <div class="card shadow-sm" style="top: 20px;">
                 <div class="card-body">
                     <h5 class="card-title mb-4">
                         <i class="bi bi-receipt"></i> Resumen del Pedido
@@ -114,6 +114,10 @@
                     <button class="btn btn-light w-100 mb-2" onclick="pagar()">
                         <i class="bi bi-credit-card"></i> Proceder al Pago
                     </button>
+
+                    <a href="{% url 'receipts:download_cart_receipt' %}" target="_blank" class="btn btn-outline-success w-100 mb-2">
+                        <i class="bi bi-file-earmark-pdf"></i> Ver Resumen PDF
+                    </a>
                     
                     <a href="{% url 'market:product_list' %}" class="btn btn-outline-secondary w-100">
                         <i class="bi bi-arrow-left"></i> Continuar Comprando

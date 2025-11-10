@@ -26,4 +26,5 @@ urlpatterns = [
     path("products/", include("market.urls")),  # market
     path("profiles/", include("profiles.urls")), #profiles
     path("ai/", include("market_ai.urls", namespace="market_ai")),
+    path('receipts/', include('receipts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
