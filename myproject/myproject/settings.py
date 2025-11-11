@@ -3,6 +3,7 @@ import environ
 import os
 import dj_database_url
 
+SITE_ID=1
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
