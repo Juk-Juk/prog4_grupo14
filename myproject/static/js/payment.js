@@ -2,7 +2,7 @@ function pagar() {
     // Get CSRF token
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     
-    fetch('/products/pago/cart/', {
+    fetch('/products/cart/checkout/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

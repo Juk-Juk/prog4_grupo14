@@ -9,3 +9,6 @@ python manage.py migrate --noinput
 
 # collectstatic
 python manage.py collectstatic --noinput
+
+# createsuperuser
+python manage.py createsuperuser --no-input

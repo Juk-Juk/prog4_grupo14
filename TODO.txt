@@ -15,6 +15,8 @@ Eventually:
 🗸 Add cart
 🗸 Add wishlist
 🗸 Create a page to list all other people's product separated from the profile owner ones
+□ Delete account button
+□ Create a custom pwreset template
 □ Add Chat between users
 □ Add sort for product_list and market
 □ Add notifications to the profile dropdown

@@ -1,4 +1,4 @@
-# Django Secret
+#Django Secret
 SECRET_KEY='<djangoSecretKey>'
 
 # Google OAuth
@@ -9,5 +9,9 @@ GOOGLE_CLIENT_SECRET='<GoogleSecret>'
 GITHUB_CLIENT_ID='<GitHubClientID>'
 GITHUB_CLIENT_SECRET='<GitHubSecret>'
 
-# Gemini OAuth
-GEMINI_API_KEY='<GeminiApiKey>'
+#Mercado Pago
+MERCADOPAGO_PUBLIC_KEY='<MercadoPagoPublicKey>'
+MERCADOPAGO_ACCESS_TOKEN='<MercadoPagoAccessToken>'
+
+#Gemini API
+GEMINI_API_KEY='<GeminiAPIKey>'

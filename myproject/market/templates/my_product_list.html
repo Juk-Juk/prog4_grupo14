@@ -137,12 +137,12 @@
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link text-dark" href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
+                <a class="page-link text-light" href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
                     <i class="bi bi-chevron-bar-left"></i>
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link text-dark" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
+                <a class="page-link text-light" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
                     <i class="bi bi-chevron-left"></i>
                 </a>
             </li>
@@ -156,12 +156,12 @@
             
             {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link text-dark" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
+                <a class="page-link text-light" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
                     <i class="bi bi-chevron-right"></i>
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link text-dark" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
+                <a class="page-link text-light" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}">
                     <i class="bi bi-chevron-bar-right"></i>
                 </a>
             </li>

@@ -17,7 +17,7 @@ DEBUG = env("DEBUG", default = True)
 
 RENDER_EXTERNAL_HOSTNAME = env("RENDER_EXTERNAL_HOSTNAME")
 
-if RENDER_EXTERNAL_HOSTNAME:
+if DEBUG==False:
      ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME]
 else:
      ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
@@ -103,10 +103,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-
-DATABASES = {
-    "default": dj_database_url.config(default=env("DATABASE_URL"), conn_max_age=600)
-}
+if DEBUG==False:
+    DATABASES = {
+        "default": dj_database_url.config(default=env("DATABASE_URL"), conn_max_age=600)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 SOCIALACCOUNT_PROVIDERS = {
         "google": {
@@ -161,6 +168,8 @@ STATIC_URL = "/static/"
 if DEBUG==False:
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+else:
+    STATICFILES_DIRS = [BASE_DIR / 'static']
 
 #Media files
 MEDIA_URL = 'media/'
