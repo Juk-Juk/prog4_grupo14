@@ -64,7 +64,8 @@ git clone https://github.com/Juk-Juk/prog4_grupo14.git
 cd myproject
 ```
 
-2. **Crear y activar el entorno virtual** <br>
+2. **Crear y activar el entorno virtual**
+
 En Linux:
 ```bash
 python -m venv venv
