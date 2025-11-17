@@ -1,10 +1,12 @@
 /* Chat message bubbles */
 .message-bubble {
-    max-width: 75%;
+    max-width: 85%;
     padding: 12px 16px;
     border-radius: 18px;
     margin-bottom: 8px;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .user-message {
@@ -14,17 +16,15 @@
 }
 
 .ai-message {
-    background-color: #00376eff;
-    border: 1px solid #e9ecef;
+    background: linear-gradient(225deg, #00376eff 0%, #4ba25e 100%);
+    color: white;
     border-bottom-left-radius: 4px;
 }
 
-/* Chat container auto-scroll */
 #chat-container {
     scroll-behavior: smooth;
 }
 
-/* Input styling */
 #id_message {
     border: 2px solid #e9ecef;
     border-radius: 25px;
@@ -41,13 +41,13 @@
 .suggestion-link {
     padding: 4px 8px;
     margin-left: 8px;
-    background-color: #f8f9fa;
+    background-color: #000000;
     border-radius: 12px;
     font-size: 0.85rem;
 }
 
 .suggestion-link:hover {
-    background-color: #e9ecef;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Send button */
@@ -70,4 +70,45 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* .ai-response-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+    line-height: 1.5;
+} */
+
+/* Collapsed state for long messages */
+.message-bubble.collapsed .ai-response-text {
+    max-height: 300px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+.message-bubble.collapsed .ai-response-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    pointer-events: none;
+}
+
+/* Expanded state */
+.message-bubble:not(.collapsed) .ai-response-text {
+    max-height: none;
+    overflow: visible;
+}
+
+.expand-btn {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    text-decoration: none;
+}
+
+.expand-btn:hover {
+    text-decoration: underline;
 }

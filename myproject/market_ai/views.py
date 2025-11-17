@@ -2,11 +2,72 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
 from .forms import ChatForm
-from .gemini_client import generate_text  # Your AI function
+from .gemini_client import generate_text
 import json
+from .gemini_client import generate_chat_response
 
 @login_required
 def ai_chat(request):
+    """AI chat assistant with Mi Mercado knowledge"""
+    
+    if "ai_chat_history" not in request.session:
+        request.session["ai_chat_history"] = []
+    
+    history = request.session["ai_chat_history"]
+    
+    if request.method == "POST":
+        if 'clear_history' in request.POST:
+            request.session["ai_chat_history"] = []
+            messages.success(request, 'Historial de chat borrado')
+            return render(request, "ai_chat.html", {"form": ChatForm(), "history": []})
+        
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            user_msg = form.cleaned_data["message"].strip()
+            
+            if not user_msg:
+                messages.warning(request, 'Por favor escribe un mensaje')
+                return render(request, "ai_chat.html", {"form": form, "history": history})
+            
+            try:
+                # Use the enhanced chat function with Mi Mercado knowledge
+                ai_resp = generate_chat_response(
+                    message=user_msg,
+                    conversation_history=history,
+                    max_history=10
+                )
+                
+                from datetime import datetime
+                history.append({
+                    "user": user_msg,
+                    "ai": ai_resp.strip(),
+                    "timestamp": datetime.now().isoformat()
+                })
+                
+                if len(history) > 50:
+                    history = history[-50:]
+                
+                request.session["ai_chat_history"] = history
+                request.session.modified = True
+                
+                form = ChatForm()
+                
+            except Exception as e:
+                messages.error(request, 'Error al comunicarse con el asistente. Intenta nuevamente.')
+                # logger.exception(f"AI Chat Error: {e}")
+        else:
+            messages.error(request, 'Por favor corrige los errores en el formulario')
+    else:
+        form = ChatForm()
+    
+    return render(request, "ai_chat.html", {
+        "form": form, 
+        "history": history,
+        "message_count": len(history)
+    })
+
+# @login_required
+# def ai_chat(request):
     """AI chat assistant with conversation history"""
     
     # Initialize chat history in session

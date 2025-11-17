@@ -50,17 +50,23 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- AI Response -->
                             <div class="d-flex justify-content-start mb-3">
-                                <div class="message-bubble ai-message">
+                                <div class="message-bubble ai-message {% if turn.ai|length > 500 %}collapsed{% endif %}" data-message-id="{{ forloop.counter }}">
                                     <div class="d-flex align-items-start">
                                         <div class="me-2">
                                             <i class="bi bi-robot" style="font-size: 1.5rem; color: #6c757d;"></i>
                                         </div>
                                         <div class="flex-grow-1">
                                             <small class="text-muted d-block mb-1"><strong>Asistente</strong></small>
-                                            <p class="mb-0">{{ turn.ai|linebreaks }}</p>
+                                            <div class="ai-response-text">
+                                                {{ turn.ai|linebreaksbr }}
+                                            </div>
+                                            {% if turn.ai|length > 500 %}
+                                            <button class="btn btn-sm btn-link expand-btn" onclick="toggleExpand({{ forloop.counter }})">
+                                                <i class="bi bi-chevron-down"></i> Ver más
+                                            </button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -92,6 +98,14 @@
                             <div class="text-danger mt-2 small">{{ form.message.errors }}</div>
                         {% endif %}
                     </form>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            <i class="bi bi-lightbulb"></i> Sugerencias: 
+                            <a href="#" class="text-decoration-none text-light suggestion-link">"¿Qué productos hay?"</a>
+                            <a href="#" class="text-decoration-none text-light suggestion-link">"¿Cómo comprar?"</a>
+                            <a href="#" class="text-decoration-none text-light suggestion-link">"¿Cómo vender?"</a>
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>

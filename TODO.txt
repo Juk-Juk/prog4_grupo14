@@ -9,7 +9,7 @@ Now:
 🗸 Add Mercado Pago integration
 🗸 Add pdf for checkout
 🗸 Add favicon and market logo
-□ Fix AI or get rid of it completely
+🗸 Fix AI
 
 Eventually:
 🗸 Add cart
