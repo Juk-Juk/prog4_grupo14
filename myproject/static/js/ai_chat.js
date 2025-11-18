@@ -34,9 +34,9 @@ function toggleExpand(messageId) {
     bubble.classList.toggle('collapsed');
     
     if (bubble.classList.contains('collapsed')) {
-        button.innerHTML = '<i class="bi bi-chevron-down"></i> Ver más';
+        button.innerHTML = '<i class="bi bi-chevron-down text-light"></i> Ver más';
     } else {
-        button.innerHTML = '<i class="bi bi-chevron-up"></i> Ver menos';
+        button.innerHTML = '<i class="bi bi-chevron-up text-light"></i> Ver menos';
     }
 }
 

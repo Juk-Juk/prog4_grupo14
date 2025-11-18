@@ -33,7 +33,7 @@
             </div>
 
             <!-- Chat Box -->
-            <div class="card shadow-sm mb-3" style="height: 500px; overflow-y: auto;" id="chat-container">
+            <div class="card shadow-sm mb-3" style="height: 475px; overflow-y: auto;" id="chat-container">
                 <div class="card-body p-4">
                     {% if history %}
                         {% for turn in history %}
@@ -63,7 +63,7 @@
                                                 {{ turn.ai|linebreaksbr }}
                                             </div>
                                             {% if turn.ai|length > 500 %}
-                                            <button class="btn btn-sm btn-link expand-btn" onclick="toggleExpand({{ forloop.counter }})">
+                                            <button class="btn btn-sm btn-link expand-btn text-light" onclick="toggleExpand({{ forloop.counter }})">
                                                 <i class="bi bi-chevron-down"></i> Ver más
                                             </button>
                                             {% endif %}
