@@ -23,3 +23,4 @@ Eventually:
 □ Look at the product's whole picture on hover
 □ add_to_cart shouldn't decrease the stock as soon as the item gets added to the cart, but rather when the transaction is completed
 □ add javascript to increase/decrease cart count in the cart seamlessly using cart.js
+□ ask the user if they wish to delete or increase the stock of a product when it's out

@@ -4,13 +4,14 @@ from .models import Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['title', 'description', 'price', 'brand', 'category', 'image']
+        fields = ['title', 'description', 'price', 'brand', 'category', 'stock', 'image']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'brand': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
+            'stock': forms.NumberInput(attrs={'class': 'form-control'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
         labels = {
@@ -19,6 +20,7 @@ class ProductForm(forms.ModelForm):
             'price': 'Precio',
             'brand': 'Marca',
             'category': 'Categoría',
+            'stock': 'Stock',
             'image': 'Imagen',
         }
 
